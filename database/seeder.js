@@ -308,7 +308,7 @@ const productsSeed = [
     description:
       "Estos equipos no incluyen cargador ni auriculares en su caja original, únicamente cable de carga tipo usb-c.",
     img: "https://http2.mlstatic.com/D_NQ_NP_775032-MLU44535847003_012021-O.webp",
-    price: 84.5,
+    price: 84,
     stock: 20,
     highlight: true,
     slug: "iphone-12-pro",
