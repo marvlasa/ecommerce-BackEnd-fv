@@ -19,5 +19,7 @@ app.use(routes);
   seeder();
 }); */
 
+//seeder();
+
 const port = 3079;
 app.listen(port, () => console.log(`Servidor en http://localhost:${port}/`));
