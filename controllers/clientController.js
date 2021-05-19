@@ -19,6 +19,7 @@ const findOneClient = async (req, res) => {
 };
 
 const createClient = async (req, res) => {
+  console.log(req.body);
   const newClient = {
     name: req.body.name,
     lastName: req.body.lastName,
