@@ -8,7 +8,6 @@ const {
   OrdersProduct,
 } = require("../database/index");
 const hash = require("../database/bcrypt");
-const { response } = require("express");
 
 const categoriesSeed = [
   "Imagen y Sonido",
@@ -26,7 +25,7 @@ const clientsSeed = [
     lastName: "Mullin",
     email: "kevinmullinf@gmail.com",
     password: "kevin",
-    direction: "Mi casa",
+    address: "Mi casa",
     phone: "094210283",
   },
   {
@@ -34,7 +33,7 @@ const clientsSeed = [
     lastName: "Testy",
     email: "test@hotmail.com",
     password: "Test",
-    direction: "Testland 404",
+    address: "Testland 404",
     phone: "097000000",
   },
 ];
@@ -410,7 +409,7 @@ const seeder = async () => {
       lastName: clientsSeed[i].lastName,
       email: clientsSeed[i].email,
       password: hash(clientsSeed[i].password),
-      direction: clientsSeed[i].direction,
+      address: clientsSeed[i].address,
       phone: clientsSeed[i].phone,
     };
     await Client.create(newClient);
