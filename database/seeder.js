@@ -18,7 +18,7 @@ const categoriesSeed = [
   "Otros",
 ];
 
-const statusesSeed = ["En proceso", "Pago", "Cancelado"];
+const statusesSeed = ["sin pagar", "pago", "enviado", "entregado"];
 
 const clientsSeed = [
   {
