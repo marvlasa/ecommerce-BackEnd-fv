@@ -29,6 +29,31 @@ const createClient = async (req, res) => {
     phone: req.body.phone,
   };
   await Client.create(newClient);
+  res.json(req.body);
 };
 
-module.exports = { findOneClient, createClient };
+const deleteClient = async (req, res) => {
+  //const email = req.user.userToken.email;
+  const email = "AK";
+  await Client.destroy({ where: { email: email } });
+  res.json("delete success");
+};
+
+const editClient = async (req, res) => {
+  //const email = req.user.userToken.email;
+  const email = "AK";
+  Client.update(
+    {
+      name: req.body.name,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: hash(req.body.password),
+      address: req.body.address,
+      phone: req.body.phone,
+    },
+    { where: { email: email } }
+  );
+  res.json("Updated");
+};
+
+module.exports = { findOneClient, createClient, deleteClient, editClient };

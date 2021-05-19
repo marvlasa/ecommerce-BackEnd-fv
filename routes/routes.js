@@ -16,5 +16,7 @@ router.get("/product/:slug", (req, res) =>
 
 router.get("/client", clientController.findOneClient);
 router.post("/client", clientController.createClient);
+router.delete("/client", clientController.deleteClient);
+router.patch("/client", clientController.editClient);
 
 module.exports = router;
