@@ -386,7 +386,7 @@ const orderSeed = [
 ];
 
 const seeder = async () => {
-  /*   for (let i = 0; i < categoriesSeed.length; i++) {
+  for (let i = 0; i < categoriesSeed.length; i++) {
     const newCategory = {
       name: categoriesSeed[i],
     };
@@ -394,6 +394,7 @@ const seeder = async () => {
     console.log("Category-" + (i + 1));
     console.log(newCategory);
   }
+
   for (let i = 0; i < statusesSeed.length; i++) {
     const newStatus = {
       name: statusesSeed[i],
@@ -402,6 +403,7 @@ const seeder = async () => {
     console.log("Status-" + (i + 1));
     console.log(newStatus);
   }
+
   for (let i = 0; i < clientsSeed.length; i++) {
     const newClient = {
       name: clientsSeed[i].name,
@@ -415,6 +417,7 @@ const seeder = async () => {
     console.log("Client-" + (i + 1));
     console.log(newClient);
   }
+
   for (let i = 0; i < adminsSeed.length; i++) {
     const newAdmin = {
       name: adminsSeed[i].name,
@@ -426,6 +429,7 @@ const seeder = async () => {
     console.log("Admin-" + (i + 1));
     console.log(newAdmin);
   }
+
   for (let i = 0; i < productsSeed.length; i++) {
     const newProduct = {
       name: productsSeed[i].name,
@@ -440,7 +444,7 @@ const seeder = async () => {
     await Product.create(newProduct);
     console.log("Product-" + (i + 1));
     console.log(newProduct);
-  } */
+  }
 
   for (let i = 0; i < orderSeed.length; i++) {
     const productsId = [];
@@ -453,17 +457,23 @@ const seeder = async () => {
       productsId.push(orderSeed[i].order[j].productId);
       productsQuantity.push(orderSeed[i].order[j].quantity);
     }
-    console.log(productsId);
-    console.log(productsQuantity);
-    /* await Order.create(newOrder).then((order) => {
-      console.log(order.dataValues);
-      Product.findAll({
-        where: {id: []},
+    console.log("Order-" + (i + 1));
+    await Order.create(newOrder).then(async (order) => {
+      await Product.findAll({
+        where: { id: productsId },
+      }).then(async (products) => {
+        for (let j = 0; j < productsId.length; j++) {
+          const orderRow = {
+            orderId: order.dataValues.id,
+            productId: productsId[j],
+            quantity: productsQuantity[j],
+            price: products[j].dataValues.price,
+          };
+          OrdersProduct.create(orderRow);
+          console.log(orderRow);
+        }
       });
-    }); */
-    /* for (let j = 0; j < productsId.length; j++) {
-      
-    } */
+    });
   }
 };
 
