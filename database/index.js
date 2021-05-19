@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
   process.env.PASS,
   {
     host: process.env.HOST,
-    dialect: "mysql",
+    dialect: process.env.DIALECT,
     logging: false,
   }
 );
