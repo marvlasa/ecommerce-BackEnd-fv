@@ -13,11 +13,10 @@ module.exports = {
 
   indexProduct: async (req, res) => {
     try {
-      const slug = req.query.slug;
-      const product = await Product.findAll({
-        where: { slug: slug },
+      const product = await Product.findOne({
+        where: { slug: req.params.slug },
       });
-      res.json({ product });
+      res.json(product);
     } catch (error) {
       console.log(error);
     }
@@ -25,15 +24,8 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      const {
-        name,
-        description,
-        image,
-        price,
-        stock,
-        highlight,
-        category,
-      } = req.body;
+      const { name, description, image, price, stock, highlight, category } =
+        req.body;
       const product = await Product.create({
         name,
         description,
