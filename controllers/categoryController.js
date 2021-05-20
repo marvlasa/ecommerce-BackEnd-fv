@@ -3,10 +3,6 @@ const { Category } = require("../database/index");
 module.exports = {
   indexCategories: async (req, res) => {
     const categories = await Category.findAll();
-    categories.map((article) => {
-      return article;
-    });
-
     res.json({ categories });
   },
 
