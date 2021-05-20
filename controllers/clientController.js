@@ -8,6 +8,8 @@ const {
   OrdersProduct,
 } = require("../database/index");
 const hash = require("../database/bcrypt");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const findOneClient = async (req, res) => {
   //const email = req.user.userToken.email;
@@ -16,6 +18,24 @@ const findOneClient = async (req, res) => {
     (data) => data.dataValues
   );
   res.json(client);
+};
+
+const loginClient = async (req, res, next) => {
+  const clientToken = { email: req.body.email };
+  const client = await Client.findOne({
+    where: { email: req.body.email },
+  }).then((data) => data.dataValues);
+  if (!client) {
+    res.json({ error: "User not found" });
+  } else {
+    if (bcrypt.compareSync(req.body.password, client.password)) {
+      jwt.sign({ clientToken }, "/YGVcde3", (err, token) => {
+        res.json({ user: { ...client, token } });
+      });
+    } else {
+      res.json({ error: "Wrong password" });
+    }
+  }
 };
 
 const createClient = async (req, res) => {
@@ -56,4 +76,10 @@ const editClient = async (req, res) => {
   res.json("Updated");
 };
 
-module.exports = { findOneClient, createClient, deleteClient, editClient };
+module.exports = {
+  findOneClient,
+  loginClient,
+  createClient,
+  deleteClient,
+  editClient,
+};
