@@ -65,7 +65,15 @@ module.exports = {
       const slug = req.query.slug;
       const { name, description, image, price, stock, highlight } = req.body;
       const product = await Product.update(
-        { name, description, image, price, stock, highlight },
+        {
+          name,
+          description,
+          image,
+          price,
+          stock,
+          highlight,
+          slug: slugify(name.toLowerCase()),
+        },
         { where: { slug: slug } }
       );
       res.json({ product });
