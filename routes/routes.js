@@ -5,6 +5,7 @@ const products = require("../database/data");
 const clientController = require("../controllers/clientController");
 const categoryController = require("../controllers/categoryController");
 const productController = require("../controllers/productController");
+const adminController = require("../controllers/adminController");
 
 router.get("/products", (req, res) => res.json(products));
 router.get("/product/:slug", (req, res) =>
@@ -30,5 +31,12 @@ router.patch("/category", categoryController.update);
 router.post("/product", productController.create);
 router.delete("/product", productController.destroy);
 router.patch("/product", productController.update);
+
+router.get("/admins", adminController.index);
+router.post("/admins", adminController.create);
+router.delete("/admins", adminController.destroy);
+router.patch("/admins", adminController.update);
+router.post("/admin/register", adminController.register);
+router.post("/tokens", adminController.login);
 
 module.exports = router;

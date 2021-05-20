@@ -4,9 +4,6 @@ const slugify = require("slugify");
 module.exports = {
   index: async (req, res) => {
     const products = await Product.findAll();
-    // products.map((product) => {
-    //   return product;
-    // });
 
     res.json({ products });
   },
@@ -24,8 +21,15 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      const { name, description, image, price, stock, highlight, category } =
-        req.body;
+      const {
+        name,
+        description,
+        image,
+        price,
+        stock,
+        highlight,
+        category,
+      } = req.body;
       const product = await Product.create({
         name,
         description,
