@@ -16,7 +16,8 @@ const adminController = require("../controllers/adminController");
 //   })
 // );
 
-router.get("/client", clientController.findOneClient);
+//router.get("/client", clientController.findOneClient);
+router.post("/token", clientController.loginClient);
 router.post("/client", clientController.createClient);
 router.delete("/client", clientController.deleteClient);
 router.patch("/client", clientController.editClient);
