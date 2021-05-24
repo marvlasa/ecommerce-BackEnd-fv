@@ -9,15 +9,9 @@ const {
 } = require("../database/index");
 const hash = require("../database/bcrypt");
 
-const categoriesSeed = [
-  "Imagen y Sonido",
-  "Cocina",
-  "Climatizacion",
-  "Limpieza",
-  "Otros",
-];
+const categoriesSeed = ["Sofa", "Table", "Chair", "Bed", "Others"];
 
-const statusesSeed = ["sin pagar", "pago", "enviado", "entregado"];
+const statusesSeed = ["without paying", "paid out", "sent", "delivered"];
 
 const clientsSeed = [
   {
@@ -29,12 +23,36 @@ const clientsSeed = [
     phone: "094210283",
   },
   {
-    name: "Test",
-    lastName: "Testy",
-    email: "test@hotmail.com",
+    name: "Marta",
+    lastName: "Perez",
+    email: "marta@hotmail.com",
+    password: "marta",
+    address: "mi casa 404",
+    phone: "097120300",
+  },
+  {
+    name: "George",
+    lastName: "Bluth",
+    email: "george.bluth@reqres.in",
+    password: "george",
+    address: "george 404",
+    phone: "097056587",
+  },
+  {
+    name: "Janet",
+    lastName: "Weaver",
+    email: "janet.weaver@reqres.in",
+    password: "janet",
+    address: "janet 404",
+    phone: "097456965",
+  },
+  {
+    name: "Emma",
+    lastName: "Wong",
+    email: "emma.wong@reqres.in",
     password: "Test",
-    address: "Testland 404",
-    phone: "097000000",
+    address: "wong 404",
+    phone: "097896654",
   },
 ];
 
@@ -55,311 +73,363 @@ const adminsSeed = [
 
 const productsSeed = [
   {
-    name: "Smart TV Samsung 75 2020 QLED 4K HDR",
+    name: "ANDERS SOFA",
     description:
-      "Los colores son tan reales como deberían ser. Con la exclusiva tecnología de punto cuántico de Samsung, QLED aumenta el volumen de color en un 100 %, de modo que disfrutarás de colores realistas en escenas oscuras o brillantes. Experimenta escenas reales. El sistema Direct Full Array 8X de QLED controla finamente la retroiluminación para crear contrastes impecables y una luz óptima. Prepárate para experimentar una mayor profundidad y ver los objetos como nunca antes.",
-    img: "https://www.estrategiaynegocios.net/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=RDGJtT2_wvbyq5AjPJET4c$daE2N3K4ZzOUsqbU5sYsJwndwh_25dutpI2C1IJwl6FB40xiOfUoExWL3M40tfzssyZqpeG_J0TFo7ZhRaDiHC9oxmioMlYVJD0A$3RbIiibgT65kY_CSDiCiUzvHvODrHApbd6ry6YGl5GGOZrs-&CONTENTTYPE=image/jpeg",
-    price: 202500,
+      "With its stylish tailoring, mixed materials, and muted colors, the Anders Sofa offers a tonal, minimal look. Wrapped in a streamlined, shelter-style frame, its ash veneer finish chicly dovetails with a basketweave performance fabric in ivory. Plus, plush cushions and bolsters make this living room sofa a cozy lounging space.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/a/n/anders_sofa_2643.jpg",
+    price: 2898,
     stock: 20,
-    highlight: false,
-    slug: "smart-tv-samsung-75-2020-qled-4k-hdr",
+    highlight: true,
+    slug: "anders-sofa",
     category: 1,
   },
   {
-    name: "Smart TV Panavox 65 4K HDR",
+    name: "ADA OVAL COFFEE TABLE",
     description:
-      "TV & Monitor Smart LED con conexión a internet, con un nivel por encima de la media, la mejor opcion en relación calidad y precio.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_609578-MLU45062894964_032021-W.jpg",
-    price: 39990,
+      "Sculptural and dynamic, the design of the Ada Oval Coffee Table makes it feel as though its oval tabletop sits delicately balanced atop its curved legs. Constructed from solid oak wood, organic variations in the grain shine through its natural finish. Sit this wood coffee table with a clean-lined sofa or sectional and richly-colored accent furniture.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/a/d/ada_coffee_table_natural_0359.jpg",
+    price: 998,
     stock: 40,
     highlight: true,
-    slug: "smart-tv-panavox-65-4k-hdr",
-    category: 1,
+    slug: "ada-oval-coffee-table",
+    category: 2,
   },
   {
-    name: "Smart TV Panavox 32",
-    description: "TV & Monitor Smart LED con conexión a internet.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/201156/ppal-desktop-1x.jpg",
-    price: 9900,
+    name: "HARLOWE SWIVEL CHAIR",
+    description:
+      "With its curved silhouette, minimalist design, and inviting ivory upholstery, the Harlowe Swivel Chair softens and reinvents your idea of statement-making design. A blonde-finished acacia swivel base sits below a rounded frame wrapped in a textured weave fabric. Curate this occasional chair with lighter wood finishes, warm neutrals, and richly-textured accents.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/h/a/hawlowe_swivel_chair_2549.jpg",
+    price: 1498,
     stock: 60,
     highlight: true,
-    slug: "smart-tv-panavox-32",
-    category: 1,
+    slug: "harlowe-swivel-chair",
+    category: 3,
   },
   {
-    name: "Smart TV Samsung 85 2021 QLED 8K",
+    name: "SHAKA ACCENT CHAIR",
     description:
-      "Los colores son tan reales como deberían ser. Con la exclusiva tecnología de punto cuántico de Samsung, QLED aumenta el volumen de color en un 100 %, de modo que disfrutarás de colores realistas en escenas oscuras o brillantes. Experimenta escenas reales. El sistema Direct Full Array 8X de QLED controla finamente la retroiluminación para crear contrastes impecables y una luz óptima. Prepárate para experimentar una mayor profundidad y ver los objetos como nunca antes.",
-    img: "https://icdn.dtcn.com/image/digitaltrends_es/samsung-q900r-85-inch-8k-qled-tv-review-9.jpg",
-    price: 560500,
+      "Modern design meets bohemian materials on this accent chair with arms. The curved wooden frame holds a cantilevered seat, woven with natural banana fibers for a high-textured look. We love this accent chair styled in living rooms or bedrooms for added seating.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/s/h/shaka_accent_chair-1.jpg",
+    price: 648,
     stock: 10,
+    highlight: true,
+    slug: "shaka-accent-chair",
+    category: 3,
+  },
+  {
+    name: "BECCA COFFEE TABLE",
+    description:
+      "Industrial-chic style is yours with the Becca coffee table, complete with a distressed black iron tripod-style base and round, rimmed oak top.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/b/e/becca-coffee-table-oak_1564991625_1_2.jpg",
+    price: 1099,
+    stock: 40,
     highlight: false,
-    slug: "smart-tv-samsung-85-2021-qled-8k",
+    slug: "becca-coffe-table",
+    category: 2,
+  },
+  {
+    name: "KRISTA ACCENT CHAIR, OLIVE GREEN",
+    description:
+      "Rustic meets mid-century chic for this accent armchair, with its minimal, clean-lined oak wooden frame and olive green fabric. The decorative chair's plush, loose seat and back cushions are upholstered in a lustrous velvet, textural fabric and feature flanged seams for a casual, laid-back look.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/k/i/kinney-chair-olive-green_1564991625-1_1.jpg",
+    price: 999,
+    stock: 20,
+    highlight: false,
+    slug: "krista-accent-charir-olive-green",
+    category: 3,
+  },
+  {
+    name: "BELMONT SOFA, COGNAC BY GINNY MACDONALD",
+    description:
+      "From the exclusive Ginny Macdonald collection for Lulu and Georgia, this classic sofa features a curved back and plush, oversized cushions to bring a polished, yet accessible look to your living room seating. Inspired by Ginny’s English heritage and handmade in Los Angeles, the collection fuses her British roots with her California lifestyle. This comfortable sofa is available in a variety of fabrics and colors making it the perfect mix-and-match piece.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/b/e/belmont-sofa-velvet-cognac-6.jpg",
+    price: 2798,
+    stock: 60,
+    highlight: true,
+    slug: "belmont-sofa-cognac-by-ginny-macdonald",
     category: 1,
   },
   {
-    name: "Refrigerador Panavox Black Inverter",
+    name: "MAXWELL SOFA, MOSS",
     description:
-      "Magnifica heladera con 2 Puertas con temperatura independiente. Capacidad 450 lts.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/186548/ppal-desktop-1x.jpg",
-    price: 34450,
+      "A rich honey-finished wood base gives way to plush cushions and incredibly comfortable seating for this Maxwell sofa. In an earthy olive fabric, this couch is roomy enough to lounge on for hours and four complementing throw pillows complete the casual, laid-back look.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/m/a/maxwell-velvet-sofa-moss_3_1564991625_1.jpg",
+    price: 3298,
     stock: 40,
-    highlight: false,
-    slug: "refrigerador-panavox-black-inverter",
-    category: 2,
+    highlight: true,
+    slug: "maxwell-sofa-moss",
+    category: 1,
   },
   {
-    name: "Refrigerador Acero Inox Samsung Side",
-    description: "Excelente heladera con 2 Puertas. Capacidad 712 lts.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_863932-MLU32027898359_082019-O.webp",
-    price: 165550,
-    stock: 20,
-    highlight: false,
-    slug: "refrigerador-acero-inox-samsung-side",
-    category: 2,
-  },
-  {
-    name: "Cocina Panavox SuperGas 4 hornallas.",
-    description: "Cocina a supergas con horno y 4 hornallas.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/34946/ppal6-desktop-1x.jpg",
-    price: 10850,
-    stock: 60,
-    highlight: false,
-    slug: "cocina-panavox-supergas-4-hornallas",
-    category: 2,
-  },
-  {
-    name: "Anafe Samsung Vidrio Templado.",
-    description: "Anafe 4 hornallas, excelente calidad.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_853903-MLU41730485006_052020-O.jpg",
-    price: 21175,
-    stock: 40,
-    highlight: false,
-    slug: "anafe-samsung-vidrio-templado",
-    category: 2,
-  },
-  {
-    name: "Microondas Panavox",
-    description: "Microondas panavox con grill, con capacidad de 28lts.",
-    img: "https://ventasalbion.com/wp-content/uploads/2021/01/D_947234-MLU43910176096_102020-F-2.jpg",
-    price: 3650,
+    name: "DEVON SOFA, BLUE",
+    description:
+      "Lounge in luxury with this plush velvet sofa. Oversized cushions and three complementing throw pillows create an inviting place to lounge while angular wooden legs add a level of overall sturdiness to this piece.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/d/e/devon-velvet-sofa-blue_1_new_1.jpg",
+    price: 2998,
     stock: 120,
     highlight: true,
-    slug: "microondas-panavox",
-    category: 2,
+    slug: "devon-sofa-blue",
+    category: 1,
   },
   {
-    name: "Chimenea Panavox",
-    description: "Extractor y purificador Panavox Lion con luz incorporada.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/164791/ppal-desktop-1x.jpg",
-    price: 4580,
+    name: "DEVA PLATFORM BED, NAVY VELVET",
+    description:
+      "Clean lines and minimal design give this platform bed a modern vibe. We love the plush navy finish - it's the ultimate luxe update for your contemporary bedroom.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/d/e/deva-platform-bed-navy_1_1564991625_1.jpg",
+    price: 1398,
     stock: 45,
     highlight: false,
-    slug: "chimenea-panavox",
-    category: 2,
+    slug: "deva-platform-bed-navy-velvet",
+    category: 4,
   },
   {
-    name: "Aire Acondicionado James 12000 BTU",
-    description: "Aire Acondicionado James Inverter de 12000 btu.",
-    img: "https://www.dimm.com.uy/imgs/productos/_original_71616.jpg?r=5283",
-    price: 18900,
+    name: "BAILEE PLATFORM BED, REGAL MOSS",
+    description:
+      "Create a magazine-worthy bedroom oasis with a bed frame that's anything but boring. This statement-making bed features a plush channeled headboard and a rich velvet upholstery, bringing a dreamy Art Deco luxury to your bedroom look",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/b/a/bailee-channel-platform-bed-regal-moss_5.jpg",
+    price: 1298,
     stock: 160,
     highlight: true,
-    slug: "aire-acondicionado-james-12000-btu",
-    category: 3,
+    slug: "bailee-platform-bed-regal-moss",
+    category: 4,
   },
   {
-    name: "Aire Acondicionado James 18000 BTU",
-    description: "Aire Acondicionado James Inverter de 18000 btu.",
-    img: "https://images-ti-vm1.tiendainglesa.com.uy/medium/P376432-1.jpg?20170830115850,Aire-Acondicionado-JAMES-Inverter-12.000-Btu-en-Tienda-Inglesa",
-    price: 25600,
+    name: "KENNSIE OFFICE CHAIR, BROWN",
+    description:
+      "The soft leatherette seat on the Kennsie chair is comfortable yet chic and the sleek nickel armrests give it a modern touch. Rolling casters and a tilt mechanism make this chair is as functional as it is stylish.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/0/1/01283brn_01.jpg",
+    price: 457,
     stock: 60,
-    highlight: false,
-    slug: "aire-acondicionado-james-18000-btu",
+    highlight: true,
+    slug: "kennsie-office-chair-brown",
     category: 3,
   },
   {
-    name: "Calientacama Bronx 1 plaza",
-    description: "Calientacama Bronx de 1 plaza con 3 niveles de calor.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/36054/ppal-desktop-1x.jpg",
+    name: "SUN AT SIX ARC DINING TABLE, NUDE",
+    description:
+      "Furniture design studio Sun at Six seeks to help create open, natural spaces with their line of minimal furniture. The Arc Dining Table seamlessly blends clean, architectural lines with exposed, interwoven joinery, and its rounded corner detailing and wide cylindrical legs soften its look. Hand-built from solid white oak and featuring a hand-rubbed tenna oil finish, this dining room table's spacious tabletop makes it an ideal centerpiece to gather around.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/a/r/arc-dining-table-nude-1_1.jpg",
     price: 750,
     stock: 120,
     highlight: true,
-    slug: "calientacama-bronx-1-plaza",
-    category: 3,
+    slug: "sun-at-six-arc-dining-table-nude",
+    category: 5,
   },
   {
-    name: "Calientacama Bronx 2 plazas",
-    description: "Calientacama Bronx de 2 plazas con 3 niveles de calor.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/36055/ppal-desktop-1x.jpg",
-    price: 1350,
+    name: "SOLENE PLATFORM BED, WHEAT",
+    description:
+      "Our Solene Bed generates a lot of visual impact with its softly curved silhouette and textural, golden-wheat upholstery. Wrapped in a luxe Belgian linen fabric and finished with oak wood legs, this bed frame's modest headboard height makes your room appear more spacious. Round off its look with crisp white bedding and muted, tonal accents.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/s/o/solene_bed_wheat_lebico_1.jpg",
+    price: 2598,
     stock: 120,
     highlight: true,
-    slug: "calientacama-bronx-2-plazas",
-    category: 3,
+    slug: "solene-platform-bed-wheat",
+    category: 4,
   },
   {
-    name: "Estufa SuperGas Bronx",
-    description: "holis",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/53195/ppal-desktop-1x.jpg",
-    price: 3200,
+    name: "ADARA BED, NAVY",
+    description:
+      "With its lofty headboard and subtle winged design, this upholstered bed adds a bit of drama and refined style to your bedroom. In a cool blue color, its textural fabric makes this bedframe and headboard very versatile. Add a graphic touch with patterned bedding, or keep the look soft and neutral with tonal bed linens.",
+    img:
+      "https://api.carlosgutierrez.com.uy/fotos/fotos/53195/ppal-desktop-1x.jpg",
+    price: 1198,
     stock: 80,
     highlight: true,
-    slug: "estufa-supergas-bronx",
+    slug: "adara-bed-navy",
+    category: 4,
+  },
+  {
+    name: "ADELAI OFFICE CHAIR",
+    description:
+      "Great for transitional offices, this impressive desk chair contrasts a light neutral upholstery with wooden arms, wrapped in a light-brown leather for a timeless touch.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/a/d/adelai-desk-chair-harbor-natural_4.jpg",
+    price: 699,
+    stock: 40,
+    highlight: true,
+    slug: "adelai-office-chair",
     category: 3,
   },
   {
-    name: "Aspiradora Panavox",
-    description: "Aspiradora Panavox de 1600W.",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/10729/ppal-desktop-1x.jpg",
-    price: 2695,
-    stock: 40,
-    highlight: false,
-    slug: "aspiradora-panavox",
-    category: 4,
-  },
-  {
-    name: "Aspiradora Robot Panavox",
-    description: "Aspiradora Robot Panavox",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/10735/ppal-desktop-1x.jpg",
-    price: 6995,
-    stock: 40,
-    highlight: false,
-    slug: "aspiradora-robot-panavox",
-    category: 4,
-  },
-  {
-    name: "Lavasecarropas Automatico LG",
+    name: "ROSAMONDE 7-DRAWER DRESSER",
     description:
-      "Lavasecarropas automatico LG capacidad 22kg de carga frontal, secado 13kg. Control mediante smartphone.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_630782-MLA45638051691_042021-O.webp",
-    price: 89990,
+      "Keep your bedroom style grounded (and clutter-free) with this wooden dresser. Featuring a black wash, slim iron base, and top-grain leather drawer pulls, this bedroom side table mixes materials for an impressive finish.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/1/0/108603-002_frt_1.jpg",
+    price: 1799,
+    stock: 40,
+    highlight: false,
+    slug: "rosamonde-7-drawer-dresser",
+    category: 5,
+  },
+  {
+    name: "LUNA 2-DRAWER NIGHTSTAND, WEATHERED",
+    description:
+      "The perfect accent for the traditional bedroom, this nightstand features ample storage to hide your end-of-the-day clutter. Carved legs, a beveled top and a weathered finish add the the colonial-inspired design.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/j/o/josette-2-drawer-side-table-weathered_1_1.jpg",
+    price: 964,
     stock: 20,
     highlight: false,
-    slug: "lavasecarropas-automatico-lg",
-    category: 4,
+    slug: "luna-2-drawer-nightstand-weathered",
+    category: 5,
   },
   {
-    name: "Lavarropas LG Inverter",
-    description: "Lavarropas LG Inverter capcacidad 9kg.",
-    img: "https://www.pcm.com.uy/content/images/thumbs/0011509_lavarropas-lg-16-kg-wt16-digital-inverter-turbo-drum_625.jpeg",
-    price: 9900,
+    name: "CALLAHAN SOFA, CHARCOAL",
+    description:
+      "There's nothing more welcoming than a big, comfy sofa. The Callahan Sofa achieves just that with an effortlessly contemporary look, complete with short wooden legs and down-filled cushions.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/c/a/callahan_sofa_charcoal_7_2_-218_1.jpg",
+    price: 1798,
     stock: 35,
     highlight: true,
-    slug: "lavarropas-lg-inverter",
-    category: 4,
+    slug: "callahan-sofa-charcoal",
+    category: 1,
   },
   {
-    name: "Secarropas LG Inverter",
-    description: "Secarropas LG Inverter capacidad 9kg.",
-    img: "http://http2.mlstatic.com/D_803953-MLA31579459748_072019-O.jpg",
-    price: 11900,
+    name: "ZENNIE SIDEBOARD, BROWN",
+    description:
+      "Convenient. Sophisticated. So, so stylish. This functional sideboard is the perfect storage piece for transitional spaces with mid-century leanings, featuring wicker sliding doors, brass accents and two pull-out drawers in a timeless wooden frame.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/9/4/94216brn_01.jpg",
+    price: 1516,
     stock: 25,
     highlight: false,
-    slug: "secarropas-lg-inverter",
+    slug: "zennie-sideboard-brown",
+    category: 5,
+  },
+  {
+    name: "NIA BED, MUSHROOM",
+    description:
+      "Organic meets modern in this tailored bed. The Nia Bed features a simple platform design wrapped in oak wood that instantly warms up your space. We love how the rounded corners and linen upholstered headboard soften the look for a polished finish.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/n/i/nia_bed_mushroom-195-321q-1_queen_size-final.jpg",
+    price: 2998,
+    stock: 70,
+    highlight: false,
+    slug: "nia-bed-mushroom",
     category: 4,
   },
   {
-    name: "Home Theatre Sony Bdv",
+    name: "PHILENE BOOKCASE, NATURAL",
     description:
-      "Déjate llevar por un audio de alta resolución más natural con los altavoces Magnetic Fluid.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_719967-MLU32588499613_102019-O.webp",
-    price: 32540,
-    stock: 70,
-    highlight: false,
-    slug: "home-theatre-sony-bdv",
-    category: 1,
-  },
-  {
-    name: "Home Cinema Sony Soundbar 5.1 ",
-    description: "Déjate llevar por un audio de alta resolución.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_603292-MLU41831351868_052020-O.webp",
-    price: 14590,
+      "Spacious, open shelving is essential for transitional spaces. This tall wooden bookshelf has an airy, natural feel with a light mango wood frame and a woven cane backing for added texture. The open bottom is perfect for adding storage bins or baskets to complete the look.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/1/0/108757-001_frt_1.jpg",
+    price: 2099,
     stock: 45,
     highlight: true,
-    slug: "home-cinema-sony-soundbar-5.1",
-    category: 1,
-  },
-  {
-    name: "Sony Playstation 5 Standard Edition",
-    description:
-      "CPU x86-64-AMD Ryzen “Zen 2” con 8 núcelos y 16 subprocesos, y una frecuencia variable de hasta 3,5 GHz. GPU con 10,3 TFLOPS de potencia, con 36 CUs a una frecuencia variable de hasta 2,23 GHz, basada en AMD Radeon RDNA 2. 16 GB de memoria GDDR6.",
-    img: "https://s.fenicio.app/f/xuruuy/productos/ps5-standard-1_1920-1200_1600460638_430.jpg",
-    price: 71190,
-    stock: 30,
-    highlight: true,
-    slug: "sony-playstation-5-standard-edition",
+    slug: "philene-bookcase-natural",
     category: 5,
   },
   {
-    name: "Microsoft XBOX Series X",
+    name: "AVRILE DESK",
     description:
-      "CPU Procesador de 8 núcleos a 3,8 GHz personalizado con microarquitectura AMD Zen 2 y fotolitografía de 7 nm, GPU Procesador gráfico personalizado con 52 unidades de cálculo a 1,825 GHz, microarquitectura AMD RDNA 2 y 12 TFLOPS, MEMORIA 16 GB GDDR6 con bus de 320 bits",
-    img: "http://www.tecnocity.com.uy/wp-content/uploads/2020/06/xbox-series-x.jpg",
-    price: 73290,
+      "A white lacquer casing creates a sleek frame for beautifully-grained walnut drawers in this modern desk. Angular black iron legs and drawer pulls add an industrial feel and provide contrast to the white frame. Style in your home office with a leather desk chair and metal table lamp for a contemporary work space.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/a/v/avrile-desk_8_1.jpg",
+    price: 1699,
+    stock: 30,
+    highlight: true,
+    slug: "avrile-desk",
+    category: 5,
+  },
+  {
+    name: "SHARNEE ACCENT CHAIR, RUST",
+    description:
+      "This charming mid-century occasional chair provides comfort and style. A simple black matte frame slants up to meet an upholstered velveteen seat cushion and matching, unique cylinder shaped backrest.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/h/g/hgda701_1_1.jpg",
+    price: 987,
     stock: 30,
     highlight: false,
-    slug: "microsoft-xbox-series-x",
-    category: 5,
+    slug: "sharnee-accent-chair-rust",
+    category: 3,
   },
   {
-    name: "Iphone 12 Pro",
+    name: "ADMINA BED, NAVY",
     description:
-      "Estos equipos no incluyen cargador ni auriculares en su caja original, únicamente cable de carga tipo usb-c.",
-    img: "https://http2.mlstatic.com/D_NQ_NP_775032-MLU44535847003_012021-O.webp",
-    price: 84,
+      "Traditional with a glamorous spin, our Admina tufted platform bed brings elegance and sophisticated to your bedroom. This feminine headboard can be dressed up with patterned pillows.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/1/2/122nbbed-brrglnv_1.jpg",
+    price: 1598,
     stock: 20,
     highlight: true,
-    slug: "iphone-12-pro",
-    category: 5,
+    slug: "admina-bed-navy",
+    category: 4,
   },
   {
-    name: "Samsung Galaxy S21 Ultra",
+    name: "ELLIA GLIDER CHAIR, PINK",
+
     description:
-      "El Samsung Galaxy S21 Ultra es el más ambicioso de los modelos 'S' de Samsung, que han repetido variantes con el modelo Galaxy S21 estándar y su variante Galaxy S21+",
-    img: "https://s.fenicio.app/f/sam/productos/496-1_800_800_1611066708_be2.jpg",
+      "With its deep seat and plush cushion, the Ellia Velvet Swivel Glider is essential for your nursery. Add a pillow for a pop of color and added comfort.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/e/l/ellia-velvet-glider-pink_1564991625_2.jpg",
     price: 84100,
     stock: 20,
     highlight: true,
-    slug: "samsung-galaxy-s21-ultra",
-    category: 5,
+    slug: "ellia-glider-chair-pink",
+    category: 3,
   },
   {
-    name: "Notebook Gamer HP Omen",
-    description: "Notebook Gamer Hp Omen 15.6 I7 256 Gb Ssd 1 Tb 8 Gb Ram Amv",
-    img: "https://http2.mlstatic.com/D_NQ_NP_708235-MLU45390709193_032021-O.webp",
-    price: 77850,
-    stock: 15,
-    highlight: false,
-    slug: "notebook-gamer-hp-omen",
-    category: 5,
-  },
-  {
-    name: "Macbook Air",
-    description: "Apple Macbook Air 13.3 Retina Core I5 128ssd 8gb",
-    img: "https://http2.mlstatic.com/D_NQ_NP_686359-MLU45035170800_022021-O.webp",
-    price: 62100,
-    stock: 15,
-    highlight: false,
-    slug: "macbook-air",
-    category: 5,
-  },
-  {
-    name: "Afeitadora Philips",
+    name: "JARELLA SWIVEL BAR STOOL",
+
     description:
-      "Cuchillas de acero de alta precisión, uso en seco y húmedo, 3 cabezales flexible en 3 direcciónes, se adaptan a cada curva de tu cara",
-    img: "https://api.carlosgutierrez.com.uy/fotos/fotos/10094/ppal-desktop-1x.jpg",
-    price: 5470,
+      "The Jarella Stool is the perfect seating option for spaces with western style influence: tapered legs, a molded swivel seat and a distressed wood finish.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/j/a/jarella-swivel-bar-stool_1.jpg",
+    price: 249,
+    stock: 15,
+    highlight: false,
+    slug: "jarella-swivel-bar-stool",
+    category: 5,
+  },
+  {
+    name: "ANITA ROUND COFFEE TABLE",
+
+    description:
+      "A round, subtly matte marble tabletop seems to float above the natural reclaimed teak base of this coffee table to form a bold centerpiece for your living space. Slim raw brass hardware connects top from base, adding a mid-century touch to this modern piece. Style it with oversized, rounded furniture and tonal, textural rugs.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/2/2/224269-004_prm_1.jpg",
+    price: 1899,
+    stock: 15,
+    highlight: false,
+    slug: "anita-round-coffee-table",
+    category: 2,
+  },
+  {
+    name: "ROSEN INDOOR / OUTDOOR SOFA",
+
+    description:
+      "Constructed from reclaimed teak wood, and featuring durable, easy-to-clean upholstery, this sofa layers in a polished and practical touch. A warm wood finish and natural-colored fabric provide a timeless constrast. We love the idea of turning your patio or sunroom into an all-year-round gathering space with this statement-making new couch.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/r/o/rosen-sofa_0442.jpg",
+    price: 2698,
     stock: 20,
     highlight: true,
-    slug: "afeitadora-philips",
-    category: 5,
+    slug: "rosen-indoor-outdoor-sofa",
+    category: 1,
   },
   {
-    name: "Plancha de pelo Gama",
+    name: "PHILENE BOOKCASE, BLACK",
     description:
-      "Planchita Gama X-Wide Digital Keration 230º Tourmaline Micro Glitt",
-    img: "https://http2.mlstatic.com/D_NQ_NP_773371-MLU45434212776_042021-O.webp",
+      "The lofty, oversized frame of this bookcase makes a statement in your space. Crafted from solid mango wood in a sleek black finish, it's the woven cane detailing that really defines this piece. With five roomy shelves, you have plenty of room to display your favorite books, vinyl collection, and greenery.",
+    img:
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/1/0/108757-002_frt_1.jpg",
     price: 3990,
     stock: 20,
     highlight: true,

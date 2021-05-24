@@ -7,14 +7,14 @@ const categoryController = require("../controllers/categoryController");
 const productController = require("../controllers/productController");
 const adminController = require("../controllers/adminController");
 
-router.get("/products", (req, res) => res.json(products));
-router.get("/product/:slug", (req, res) =>
-  products.forEach((element, index) => {
-    if (element.slug === req.params.slug) {
-      res.json(products[index]);
-    }
-  })
-);
+// router.get("/products", (req, res) => res.json(products));
+// router.get("/product/:slug", (req, res) =>
+//   products.forEach((element, index) => {
+//     if (element.slug === req.params.slug) {
+//       res.json(products[index]);
+//     }
+//   })
+// );
 
 router.get("/client", clientController.findOneClient);
 router.post("/client", clientController.createClient);
@@ -26,8 +26,8 @@ router.post("/category", categoryController.create);
 router.delete("/category", categoryController.destroy);
 router.patch("/category", categoryController.update);
 
-//router.get("/products", productController.index);
-//router.get("/product/:slug", productController.indexProduct);
+router.get("/products", productController.index);
+router.get("/product/:slug", productController.indexProduct);
 router.post("/product", productController.create);
 router.delete("/product", productController.destroy);
 router.patch("/product", productController.update);
