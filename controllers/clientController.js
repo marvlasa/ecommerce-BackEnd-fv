@@ -21,6 +21,7 @@ const findOneClient = async (req, res) => {
 };
 
 const loginClient = async (req, res, next) => {
+  console.log(req.body);
   const clientToken = { email: req.body.email };
   const client = await Client.findOne({
     where: { email: req.body.email },
@@ -30,7 +31,16 @@ const loginClient = async (req, res, next) => {
   } else {
     if (bcrypt.compareSync(req.body.password, client.password)) {
       jwt.sign({ clientToken }, "/YGVcde3", (err, token) => {
-        res.json({ user: { ...client, token } });
+        res.json({
+          user: {
+            name: client.name,
+            lastName: client.lastName,
+            email: client.email,
+            phone: client.phone,
+            address: client.address,
+            token,
+          },
+        });
       });
     } else {
       res.json({ error: "Wrong password" });
@@ -40,16 +50,25 @@ const loginClient = async (req, res, next) => {
 
 const createClient = async (req, res) => {
   console.log(req.body);
+  const clientToken = { email: req.body.email };
   const newClient = {
     name: req.body.name,
     lastName: req.body.lastName,
     email: req.body.email,
     password: hash(req.body.password),
-    address: req.body.address,
-    phone: req.body.phone,
   };
-  await Client.create(newClient);
-  res.json(req.body);
+  await Client.create(newClient).then(() => {
+    jwt.sign({ clientToken }, "/YGVcde3", (err, token) => {
+      res.json({
+        user: {
+          name: req.body.name,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          token: token,
+        },
+      });
+    });
+  });
 };
 
 const deleteClient = async (req, res) => {
