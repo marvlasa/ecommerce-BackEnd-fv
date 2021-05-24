@@ -45,8 +45,6 @@ const createClient = async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: hash(req.body.password),
-    address: req.body.address,
-    phone: req.body.phone,
   };
   await Client.create(newClient);
   res.json(req.body);
