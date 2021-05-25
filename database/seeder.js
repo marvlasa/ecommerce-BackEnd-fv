@@ -245,7 +245,7 @@ const productsSeed = [
     description:
       "With its lofty headboard and subtle winged design, this upholstered bed adds a bit of drama and refined style to your bedroom. In a cool blue color, its textural fabric makes this bedframe and headboard very versatile. Add a graphic touch with patterned bedding, or keep the look soft and neutral with tonal bed linens.",
     img:
-      "https://api.carlosgutierrez.com.uy/fotos/fotos/53195/ppal-desktop-1x.jpg",
+      "https://d3tt7xf0u0byqe.cloudfront.net/media/catalog/product/cache/1/image/510x662/040ec09b1e35df139433887a97daa66f/4/3/432bedlnnnv_1.jpg",
     price: 1198,
     stock: 80,
     highlight: true,
