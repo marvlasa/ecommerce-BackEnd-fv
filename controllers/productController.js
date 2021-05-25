@@ -1,4 +1,4 @@
-const { Product } = require("../database/index");
+const { Product, Category } = require("../database/index");
 const slugify = require("slugify");
 
 module.exports = {
@@ -11,6 +11,12 @@ module.exports = {
     try {
       const product = await Product.findOne({
         where: { slug: req.params.slug },
+        include: [
+          {
+            model: Category,
+            as: "category",
+          },
+        ],
       });
       res.json(product);
     } catch (error) {
@@ -20,8 +26,15 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      const { name, description, image, price, stock, highlight, category } =
-        req.body;
+      const {
+        name,
+        description,
+        image,
+        price,
+        stock,
+        highlight,
+        category,
+      } = req.body;
       const product = await Product.create({
         name,
         description,
