@@ -11,12 +11,7 @@ module.exports = {
     try {
       const product = await Product.findOne({
         where: { slug: req.params.slug },
-        include: [
-          {
-            model: Category,
-            as: "category",
-          },
-        ],
+        include: Category,
       });
       res.json(product);
     } catch (error) {
@@ -45,7 +40,7 @@ module.exports = {
         slug: slugify(name.toLowerCase()),
         categoryId: category,
       });
-      res.json({ product });
+      res.json(product);
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +72,7 @@ module.exports = {
         },
         { where: { slug: slug } }
       );
-      res.json({ product });
+      res.json(product);
     } catch (error) {
       console.log(error);
     }

@@ -19,10 +19,10 @@ router.post("/test", (req, res) => res.json(req.body));
 // );
 
 //router.get("/client", clientController.findOneClient);
-router.post("/token", clientController.loginClient);
-router.post("/client", clientController.createClient);
-router.delete("/client", clientController.deleteClient);
-router.patch("/client", clientController.editClient);
+router.post("/token", clientController.login);
+router.post("/client", clientController.register);
+router.delete("/client", clientController.destroy);
+router.patch("/client", clientController.update);
 
 router.get("/category", categoryController.indexCategories);
 router.post("/category", categoryController.create);

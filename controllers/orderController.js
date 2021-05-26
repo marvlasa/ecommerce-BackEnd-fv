@@ -1,3 +1,4 @@
+const { forEach } = require("../database/data");
 const {
   Status,
   Client,
@@ -10,24 +11,9 @@ module.exports = {
   index: async (req, res) => {
     try {
       const orders = await Order.findAll({
-        include: [
-          {
-            model: Client,
-            as: "client",
-          },
-        ],
-        include: [
-          {
-            model: Status,
-            as: "status",
-          },
-        ],
-        include: [
-          {
-            model: Product,
-            as: "products",
-          },
-        ],
+        include: Client,
+        include: Status,
+        include: Product,
       });
       res.json(orders);
     } catch (err) {
@@ -36,35 +22,31 @@ module.exports = {
   },
 
   indexOrder: async (req, res) => {
-    res.jsno("No funciona esto");
+    res.json("No funciona esto");
   },
 
-  create: async (req, res) => {
+  create: (req, res) => {
     const productsId = [];
-    const productsQuantity = [];
     const clientId = 1;
     const cart = [
       { id: 1, quantity: 1 },
       { id: 2, quantity: 2 },
       { id: 3, quantity: 3 },
     ];
-    for (let i = 0; i < cart.length; i++) {
-      productsId.push(cart[i].id);
-      productsQuantity.push(cart[i].quantity);
-    }
+    cart.forEach((item) => productsId.push(item.id));
     Order.create({ clientId: clientId, statusId: 1 }).then((order) => {
       Product.findAll({
         where: { id: productsId },
       }).then((products) => {
-        for (let i = 0; i < productsId.length; i++) {
+        productsId.forEach((id, i) => {
           const orderRow = {
             orderId: order.dataValues.id,
-            productId: productsId[i],
-            quantity: productsQuantity[i],
+            productId: id,
+            quantity: cart[i].quantity,
             price: products[i].dataValues.price,
           };
           OrdersProduct.create(orderRow);
-        }
+        });
       });
     });
     res.json("complete");

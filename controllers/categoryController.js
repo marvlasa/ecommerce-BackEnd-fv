@@ -9,7 +9,6 @@ module.exports = {
   create: async (req, res) => {
     try {
       const name = req.body.name;
-      console.log(name);
       const category = await Category.create({
         name: name,
       });
