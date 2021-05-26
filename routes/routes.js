@@ -9,16 +9,7 @@ const adminController = require("../controllers/adminController");
 const orderController = require("../controllers/orderController");
 
 router.post("/test", (req, res) => res.json(req.body));
-// router.get("/products", (req, res) => res.json(products));
-// router.get("/product/:slug", (req, res) =>
-//   products.forEach((element, index) => {
-//     if (element.slug === req.params.slug) {
-//       res.json(products[index]);
-//     }
-//   })
-// );
 
-//router.get("/client", clientController.findOneClient);
 router.post("/token", clientController.login);
 router.post("/client", clientController.register);
 router.delete("/client", clientController.destroy);
