@@ -8,6 +8,7 @@ const productController = require("../controllers/productController");
 const adminController = require("../controllers/adminController");
 const orderController = require("../controllers/orderController");
 
+router.post("/test", (req, res) => res.json(req.body));
 // router.get("/products", (req, res) => res.json(products));
 // router.get("/product/:slug", (req, res) =>
 //   products.forEach((element, index) => {
