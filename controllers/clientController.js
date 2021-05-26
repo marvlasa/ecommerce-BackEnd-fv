@@ -10,6 +10,7 @@ const {
 const hash = require("../database/bcrypt");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const data = require("../database/data");
 
 const findOneClient = async (req, res) => {
   //const email = req.user.userToken.email;
@@ -21,11 +22,11 @@ const findOneClient = async (req, res) => {
 };
 
 const loginClient = async (req, res, next) => {
-  console.log(req.body);
-  const clientToken = { email: req.body.email };
   const client = await Client.findOne({
     where: { email: req.body.email },
   }).then((data) => data.dataValues);
+  const clientToken = { id: client.id, email: client.email };
+  console.log(clientToken);
   if (!client) {
     res.json({ error: "User not found" });
   } else {
@@ -49,15 +50,18 @@ const loginClient = async (req, res, next) => {
 };
 
 const createClient = async (req, res) => {
-  console.log(req.body);
-  const clientToken = { email: req.body.email };
   const newClient = {
     name: req.body.name,
     lastName: req.body.lastName,
     email: req.body.email,
     password: hash(req.body.password),
   };
-  await Client.create(newClient).then(() => {
+  await Client.create(newClient).then((client) => {
+    const clientToken = {
+      id: client.dataValues.id,
+      email: client.dataValues.email,
+    };
+    console.log(clientToken);
     jwt.sign({ clientToken }, "/YGVcde3", (err, token) => {
       res.json({
         user: {

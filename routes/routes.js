@@ -44,7 +44,7 @@ router.post("/tokens", adminController.login);
 
 router.get("/orders", orderController.index);
 router.get("/order", orderController.indexOrder);
-router.post("/orders", orderController.create);
+router.post("/order", orderController.create);
 router.delete("/order", orderController.destroy);
 
 module.exports = router;
