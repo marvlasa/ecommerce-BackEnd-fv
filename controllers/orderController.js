@@ -52,23 +52,21 @@ module.exports = {
       productsId.push(cart[i].id);
       productsQuantity.push(cart[i].quantity);
     }
-    await Order.create({ clientId: clientId, statusId: 1 }).then(
-      async (order) => {
-        await Product.findAll({
-          where: { id: productsId },
-        }).then(async (products) => {
-          for (let i = 0; i < productsId.length; i++) {
-            const orderRow = {
-              orderId: order.dataValues.id,
-              productId: productsId[i],
-              quantity: productsQuantity[i],
-              price: products[i].dataValues.price,
-            };
-            OrdersProduct.create(orderRow);
-          }
-        });
-      }
-    );
+    Order.create({ clientId: clientId, statusId: 1 }).then((order) => {
+      Product.findAll({
+        where: { id: productsId },
+      }).then((products) => {
+        for (let i = 0; i < productsId.length; i++) {
+          const orderRow = {
+            orderId: order.dataValues.id,
+            productId: productsId[i],
+            quantity: productsQuantity[i],
+            price: products[i].dataValues.price,
+          };
+          OrdersProduct.create(orderRow);
+        }
+      });
+    });
     res.json("complete");
   },
 
