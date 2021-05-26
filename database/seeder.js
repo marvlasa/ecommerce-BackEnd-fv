@@ -11,7 +11,7 @@ const hash = require("../database/bcrypt");
 
 const categoriesSeed = ["Sofa", "Table", "Chair", "Bed", "Others"];
 
-const statusesSeed = ["without paying", "paid out", "sent", "delivered"];
+const statusesSeed = ["without paying", "paid", "sent", "delivered"];
 
 const clientsSeed = [
   {

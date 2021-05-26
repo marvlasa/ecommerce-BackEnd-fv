@@ -6,6 +6,7 @@ const clientController = require("../controllers/clientController");
 const categoryController = require("../controllers/categoryController");
 const productController = require("../controllers/productController");
 const adminController = require("../controllers/adminController");
+const orderController = require("../controllers/orderController");
 
 // router.get("/products", (req, res) => res.json(products));
 // router.get("/product/:slug", (req, res) =>
@@ -39,5 +40,10 @@ router.delete("/admins", adminController.destroy);
 router.patch("/admins", adminController.update);
 router.post("/admin/register", adminController.register);
 router.post("/tokens", adminController.login);
+
+router.get("/orders", orderController.index);
+router.get("/order", orderController.indexOrder);
+router.post("/orders", orderController.create);
+router.delete("/order", orderController.destroy);
 
 module.exports = router;
