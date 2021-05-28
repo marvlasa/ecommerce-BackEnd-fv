@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const products = require("../database/data");
+const checkJwt = require("express-jwt");
 
 const clientController = require("../controllers/clientController");
 const categoryController = require("../controllers/categoryController");
@@ -8,7 +9,16 @@ const productController = require("../controllers/productController");
 const adminController = require("../controllers/adminController");
 const orderController = require("../controllers/orderController");
 
+const authentification = checkJwt({
+  secret: "/YGVcde3",
+  algorithms: ["HS256"],
+});
+
 router.post("/test", (req, res) => res.json(req.body));
+
+router.post("/testJWT", authentification, (req, res) => {
+  res.json(req.user);
+});
 
 router.post("/token", clientController.login);
 router.post("/client", clientController.register);
@@ -21,6 +31,7 @@ router.delete("/category", categoryController.destroy);
 router.patch("/category", categoryController.update);
 
 router.get("/products", productController.index);
+//router.get("/products", authentification, productController.index);
 router.get("/product/:slug", productController.indexProduct);
 router.post("/product", productController.create);
 router.delete("/product/:id", productController.destroy);

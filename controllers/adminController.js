@@ -54,36 +54,29 @@ module.exports = {
   },
 
   login: async (req, res) => {
-    console.log(req.body);
     const { email, password } = req.body;
-    console.log(email, password);
-
     const userInDB = await Admin.findOne({ where: { email: email } });
-    console.log(userInDB);
-
     if (!userInDB) {
       res.json("No existe el usuario");
-    }
-    if (!bcrypt.compareSync(password, userInDB.dataValues.password)) {
+    } else if (!bcrypt.compareSync(password, userInDB.dataValues.password)) {
       res.json("Contraseña incorrecta");
+    } else {
+      const token = jwt.sign(
+        {
+          id: userInDB.dataValues.id,
+          email: userInDB.dataValues.email,
+        },
+        process.env.SECRET_TEXT
+      );
+      res.json({
+        admin: {
+          name: userInDB.dataValues.name,
+          lastName: userInDB.dataValues.lastName,
+          email: userInDB.dataValues.email,
+        },
+        token,
+      });
     }
-    const token = jwt.sign(
-      {
-        id: userInDB.dataValues.id,
-        email: userInDB.dataValues.email,
-      },
-      process.env.SECRET_TEXT
-    );
-
-    res.json({
-      admin: {
-        name: userInDB.dataValues.name,
-        lastName: userInDB.dataValues.lastName,
-        email: userInDB.dataValues.email,
-      },
-
-      token,
-    });
   },
 
   register: async (req, res) => {
