@@ -1,9 +1,13 @@
 const { Product, Category } = require("../database/index");
 const slugify = require("slugify");
+const { response } = require("express");
 
 module.exports = {
   index: async (req, res) => {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      limit: 30,
+      order: [["createdAt", "DESC"]],
+    });
     res.json(products);
   },
 
@@ -21,15 +25,12 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      const {
-        name,
-        description,
-        image,
-        price,
-        stock,
-        highlight,
-        category,
-      } = req.body;
+      const { name, description, price } = req.body;
+      const image =
+        "https://muebles.uy/muebles-cdn/art-img/1161344784233333jpg.jpg";
+      const highlight = false;
+      const stock = 20;
+      const category = 1;
       const product = await Product.create({
         name,
         description,
@@ -58,20 +59,23 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const slug = req.query.slug;
-      const { name, description, image, price, stock, highlight } = req.body;
+      const { name, description, image, price, highlight } = req.body;
+      console.log(req.body);
+
+      const id = req.params.id;
       const product = await Product.update(
         {
           name,
           description,
           image,
           price,
-          stock,
           highlight,
           slug: slugify(name.toLowerCase()),
         },
-        { where: { slug: slug } }
+
+        { where: { id: id } }
       );
+      console.log(product);
       res.json(product);
     } catch (error) {
       console.log(error);

@@ -54,30 +54,34 @@ module.exports = {
   },
 
   login: async (req, res) => {
-    const { adminEmail, password } = req.body;
-    const userInDB = {};
-    if (adminEmail) {
-      userInDB = await Admin.findOne({ where: { email: admin } });
-    }
+    console.log(req.body);
+    const { email, password } = req.body;
+    console.log(email, password);
+
+    const userInDB = await Admin.findOne({ where: { email: email } });
+    console.log(userInDB);
+
     if (!userInDB) {
       res.json("No existe el usuario");
     }
-    if (!bcrypt.compareSync(password, userDB.password)) {
-      res.json("Usuario o contraseña incorrecta");
+    if (!bcrypt.compareSync(password, userInDB.dataValues.password)) {
+      res.json("Contraseña incorrecta");
     }
     const token = jwt.sign(
       {
-        userId: userInDB.id,
-        name: userInDB.name,
-        lastName: userInDB.lastName,
-        email: userInDB.email,
+        id: userInDB.dataValues.id,
+        email: userInDB.dataValues.email,
       },
       process.env.SECRET_TEXT
     );
 
     res.json({
-      userId: userInDB.id,
-      email: userDB.email,
+      admin: {
+        name: userInDB.dataValues.name,
+        lastName: userInDB.dataValues.lastName,
+        email: userInDB.dataValues.email,
+      },
+
       token,
     });
   },
