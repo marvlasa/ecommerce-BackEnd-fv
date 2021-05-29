@@ -48,9 +48,11 @@ module.exports = {
   },
 
   destroy: async (req, res) => {
+    console.log("holis");
     try {
-      const slug = req.query.slug;
-      await Product.destroy({ where: { slug: slug } });
+      const id = req.params.id;
+      console.log(id);
+      await Product.destroy({ where: { id: id } });
       res.json("Se ha borrado el producto");
     } catch (error) {
       console.log(error);
