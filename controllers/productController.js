@@ -13,12 +13,24 @@ module.exports = {
 
   indexHighlightProducts: async (req, res) => {
     try {
-      const product = await Product.findAll({
+      const products = await Product.findAll({
         where: { highlight: 1 },
         limit: 3,
         include: Category,
       });
-      res.json(product);
+      res.json(products);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  indexCategoryProducts: async (req, res) => {
+    try {
+      const products = await Product.findAll({
+        where: { categoryId: req.params.id },
+        include: Category,
+      });
+      res.json(products);
     } catch (error) {
       console.log(error);
     }
