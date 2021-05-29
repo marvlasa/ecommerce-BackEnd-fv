@@ -31,6 +31,7 @@ router.delete("/category", categoryController.destroy);
 router.patch("/category", categoryController.update);
 
 router.get("/products", productController.index);
+router.get("/products/highlight", productController.indexHighlightProducts);
 //router.get("/products", authentification, productController.index);
 router.get("/product/:slug", productController.indexProduct);
 router.post("/product", productController.create);

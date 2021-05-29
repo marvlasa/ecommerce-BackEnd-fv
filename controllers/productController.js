@@ -11,6 +11,19 @@ module.exports = {
     res.json(products);
   },
 
+  indexHighlightProducts: async (req, res) => {
+    try {
+      const product = await Product.findAll({
+        where: { highlight: 1 },
+        limit: 3,
+        include: Category,
+      });
+      res.json(product);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   indexProduct: async (req, res) => {
     try {
       const product = await Product.findOne({
