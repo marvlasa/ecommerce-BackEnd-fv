@@ -78,36 +78,4 @@ module.exports = {
       });
     }
   },
-
-  register: async (req, res) => {
-    const { name, lastName, email, password } = req.body;
-    const admin = await Admin.findOne({ where: { email: email } });
-    if (admin) {
-      res.json("Ya existe el usuario");
-    } else {
-      try {
-        const newUser = await Admin.create({
-          name,
-          lastName,
-          email,
-          password: hash(password),
-        });
-        console.log("Se registró el usuario");
-        let token = jwt.sign(
-          {
-            email,
-            userId: newUser.id,
-          },
-          process.env.SECRET_TEXT
-        );
-        res.json({
-          userId: newUser.id,
-          email: newUser.email,
-          token,
-        });
-      } catch (err) {
-        console.log(error);
-      }
-    }
-  },
 };
