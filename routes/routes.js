@@ -33,11 +33,11 @@ router.patch("/category", categoryController.update);
 router.get("/products", productController.index);
 router.get("/products/highlight", productController.indexHighlightProducts);
 router.get("/products/category/:id", productController.indexCategoryProducts);
-//router.get("/products", authentification, productController.index);
+
 router.get("/product/:slug", productController.indexProduct);
 router.post("/product", productController.create);
 router.delete("/product/:id", productController.destroy);
-router.patch("/product/:id", productController.update);
+//router.patch("/product/:id", productController.update);
 
 router.get("/admins", adminController.index);
 router.post("/admins", adminController.create);
@@ -49,5 +49,13 @@ router.get("/orders", orderController.index);
 router.get("/order", orderController.indexOrder);
 router.post("/order", orderController.create);
 router.delete("/order", orderController.destroy);
+
+router.get("/admin/products", authentification, productController.index);
+router.get(
+  "/admin/product/:slug",
+  authentification,
+  productController.indexProduct
+);
+router.patch("/admin/product/:id", authentification, productController.update);
 
 module.exports = router;
