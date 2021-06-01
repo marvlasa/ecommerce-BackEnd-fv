@@ -22,13 +22,23 @@ module.exports = {
   },
 
   indexOrder: async (req, res) => {
-    res.json("No funciona esto");
+    const id = req.params.id;
+    try {
+      const order = await Order.findOne({
+        include: Client,
+        include: Status,
+        include: Product,
+        where: {
+          id: id,
+        },
+      });
+      res.json(order);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   create: (req, res) => {
-    console.log(req.body);
-    console.log(req.user);
-
     const productsId = [];
     const clientId = req.user.clientToken.id;
     const cart = req.body;

@@ -47,7 +47,7 @@ router.patch("/admins", adminController.update);
 router.post("/tokens", adminController.login);
 
 router.get("/orders", orderController.index);
-router.get("/order", orderController.indexOrder);
+router.get("/order/:id", orderController.indexOrder);
 router.post("/order", authentication, orderController.create);
 router.delete("/order", orderController.destroy);
 
