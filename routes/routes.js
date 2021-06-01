@@ -9,15 +9,16 @@ const productController = require("../controllers/productController");
 const adminController = require("../controllers/adminController");
 const orderController = require("../controllers/orderController");
 
-const authentification = checkJwt({
+const authentication = checkJwt({
   secret: "/YGVcde3",
   algorithms: ["HS256"],
 });
 
 router.post("/test", (req, res) => res.json(req.body));
 
-router.post("/testJWT", authentification, (req, res) => {
-  res.json(req.user);
+router.post("/testJWT", authentication, (req, res) => {
+  const response = { user: req.user, body: req.body };
+  res.json(response);
 });
 
 router.post("/token", clientController.login);
@@ -47,12 +48,12 @@ router.post("/tokens", adminController.login);
 
 router.get("/orders", orderController.index);
 router.get("/order", orderController.indexOrder);
-router.post("/order", orderController.create);
+router.post("/order", authentication, orderController.create);
 router.delete("/order", orderController.destroy);
 
-router.get("/admin/products", authentification, productController.index);
+router.get("/admin/products", authentication, productController.index);
 router.get("/admin/product/:slug", productController.indexProduct);
-router.patch("/admin/product/:id", authentification, productController.update);
+router.patch("/admin/product/:id", authentication, productController.update);
 
 router.get("/admins", adminController.index);
 

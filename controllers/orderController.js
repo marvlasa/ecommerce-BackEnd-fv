@@ -26,13 +26,13 @@ module.exports = {
   },
 
   create: (req, res) => {
+    console.log(req.body);
+    console.log(req.user);
+
     const productsId = [];
-    const clientId = 1;
-    const cart = [
-      { id: 1, quantity: 1 },
-      { id: 2, quantity: 2 },
-      { id: 3, quantity: 3 },
-    ];
+    const clientId = req.user.clientToken.id;
+    const cart = req.body;
+
     cart.forEach((item) => productsId.push(item.id));
     Order.create({ clientId: clientId, statusId: 1 }).then((order) => {
       Product.findAll({
