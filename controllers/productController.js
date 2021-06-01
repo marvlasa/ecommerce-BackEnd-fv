@@ -27,7 +27,7 @@ module.exports = {
   indexCategoryProducts: async (req, res) => {
     try {
       const products = await Product.findAll({
-        where: { categoryId: req.params.id },
+        where: { name: req.params },
         include: Category,
       });
       res.json(products);
