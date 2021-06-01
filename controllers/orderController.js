@@ -21,7 +21,24 @@ module.exports = {
     }
   },
 
-  indexOrder: async (req, res) => {
+  indexOrders: async (req, res) => {
+    const clientId = req.user.clientToken.id;
+    try {
+      const orders = await Order.findAll({
+        include: Client,
+        include: Status,
+        include: Product,
+        where: {
+          clientId: clientId,
+        },
+      });
+      res.json(orders);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  indexSingleOrder: async (req, res) => {
     const id = req.params.id;
     try {
       const order = await Order.findOne({
