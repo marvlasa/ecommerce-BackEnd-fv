@@ -39,7 +39,7 @@ router.post("/product", productController.create);
 router.delete("/product/:id", productController.destroy);
 //router.patch("/product/:id", productController.update);
 
-router.get("/admins", adminController.index);
+//router.get("/admins", adminController.index);
 router.post("/admins", adminController.create);
 router.delete("/admins", adminController.destroy);
 router.patch("/admins", adminController.update);
@@ -51,11 +51,9 @@ router.post("/order", orderController.create);
 router.delete("/order", orderController.destroy);
 
 router.get("/admin/products", authentification, productController.index);
-router.get(
-  "/admin/product/:slug",
-  authentification,
-  productController.indexProduct
-);
+router.get("/admin/product/:slug", productController.indexProduct);
 router.patch("/admin/product/:id", authentification, productController.update);
+
+router.get("/admins", authentirfication, adminController.index);
 
 module.exports = router;
