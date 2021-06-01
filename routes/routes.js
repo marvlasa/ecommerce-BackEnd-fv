@@ -54,6 +54,6 @@ router.get("/admin/products", authentification, productController.index);
 router.get("/admin/product/:slug", productController.indexProduct);
 router.patch("/admin/product/:id", authentification, productController.update);
 
-router.get("/admins", authentirfication, adminController.index);
+router.get("/admins", adminController.index);
 
 module.exports = router;
