@@ -47,6 +47,7 @@ router.patch("/admins", adminController.update);
 router.post("/tokens", adminController.login);
 
 //router.get("/orders", orderController.index);
+//Comentario
 router.get("/orders", authentication, orderController.indexOrders);
 router.get("/order/:id", orderController.indexSingleOrder);
 router.post("/order", authentication, orderController.create);
