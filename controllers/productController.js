@@ -5,6 +5,7 @@ const { response } = require("express");
 module.exports = {
   index: async (req, res) => {
     const products = await Product.findAll({
+      include: Category,
       limit: 30,
       order: [["createdAt", "DESC"]],
     });
@@ -27,7 +28,7 @@ module.exports = {
   indexCategoryProducts: async (req, res) => {
     try {
       const products = await Product.findAll({
-        where: { name: req.params },
+        where: { categoryId: req.params.id },
         include: Category,
       });
       res.json(products);
