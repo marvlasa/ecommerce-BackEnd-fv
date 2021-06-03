@@ -6,14 +6,13 @@ const {
   Order,
   OrdersProduct,
 } = require("../database/index");
+const productController = require("./productController");
 
 module.exports = {
   index: async (req, res) => {
     try {
       const orders = await Order.findAll({
-        include: Client,
-        include: Status,
-        include: Product,
+        include: [Product, Status, Client],
       });
       res.json(orders);
     } catch (err) {
@@ -25,9 +24,8 @@ module.exports = {
     const clientId = req.user.clientToken.id;
     try {
       const orders = await Order.findAll({
-        include: Client,
-        include: Status,
-        include: Product,
+        include: [Product, Status, Client],
+
         where: {
           clientId: clientId,
         },
@@ -42,9 +40,8 @@ module.exports = {
     const id = req.params.id;
     try {
       const order = await Order.findOne({
-        include: Client,
-        include: Status,
-        include: Product,
+        include: [Product, Status, Client],
+
         where: {
           id: id,
         },

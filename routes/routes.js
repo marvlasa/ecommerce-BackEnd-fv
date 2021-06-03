@@ -46,7 +46,6 @@ router.delete("/admins", authentication, adminController.destroy);
 router.patch("/admins", adminController.update);
 router.post("/tokens", adminController.login);
 
-//router.get("/orders", orderController.index);
 router.get("/orders", authentication, orderController.indexOrders);
 router.get("/order/:id", orderController.indexSingleOrder);
 router.post("/order", authentication, orderController.create);
@@ -55,6 +54,7 @@ router.delete("/order", orderController.destroy);
 router.get("/admin/products", authentication, productController.index);
 router.get("/admin/product/:slug", productController.indexProduct);
 router.patch("/admin/product/:id", authentication, productController.update);
+router.get("/admin/orders", authentication, orderController.index);
 
 router.get("/admins", adminController.index);
 
