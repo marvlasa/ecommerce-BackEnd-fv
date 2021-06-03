@@ -25,12 +25,16 @@ module.exports = {
   },
 
   destroy: async (req, res) => {
-    try {
-      const email = req.body.email;
-      await Admin.destroy({ where: { email: email } });
-      res.json("Se ha borrado el administrador");
-    } catch (error) {
-      console.log(error);
+    if (req.user.adminToken.email !== req.body.email) {
+      try {
+        const email = req.body.email;
+        await Admin.destroy({ where: { email: email } });
+        res.json("Se ha borrado el administrador");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      res.json("SAME ACCOUNT");
     }
   },
 
@@ -61,13 +65,11 @@ module.exports = {
     } else if (!bcrypt.compareSync(password, userInDB.dataValues.password)) {
       res.json("Contraseña incorrecta");
     } else {
-      const token = jwt.sign(
-        {
-          id: userInDB.dataValues.id,
-          email: userInDB.dataValues.email,
-        },
-        process.env.SECRET_TEXT
-      );
+      const adminToken = {
+        id: userInDB.dataValues.id,
+        email: userInDB.dataValues.email,
+      };
+      const token = jwt.sign({ adminToken }, "/YGVcde3");
       res.json({
         admin: {
           name: userInDB.dataValues.name,
