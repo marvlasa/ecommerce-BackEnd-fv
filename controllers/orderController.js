@@ -56,24 +56,27 @@ module.exports = {
     const productsId = [];
     const clientId = req.user.clientToken.id;
     const cart = req.body;
-
-    cart.forEach((item) => productsId.push(item.id));
-    Order.create({ clientId: clientId, statusId: 1 }).then((order) => {
-      Product.findAll({
-        where: { id: productsId },
-      }).then((products) => {
-        productsId.forEach((id, i) => {
-          const orderRow = {
-            orderId: order.dataValues.id,
-            productId: id,
-            quantity: cart[i].quantity,
-            price: products[i].dataValues.price,
-          };
-          OrdersProduct.create(orderRow);
+    if (cart.length >= 1) {
+      cart.forEach((item) => productsId.push(item.id));
+      Order.create({ clientId: clientId, statusId: 1 }).then((order) => {
+        Product.findAll({
+          where: { id: productsId },
+        }).then((products) => {
+          productsId.forEach((id, i) => {
+            const orderRow = {
+              orderId: order.dataValues.id,
+              productId: id,
+              quantity: cart[i].quantity,
+              price: products[i].dataValues.price,
+            };
+            OrdersProduct.create(orderRow);
+          });
         });
       });
-    });
-    res.json("complete");
+      res.json("complete");
+    } else {
+      console.log("no");
+    }
   },
 
   destroy: async (req, res) => {
