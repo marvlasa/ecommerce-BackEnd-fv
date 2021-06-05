@@ -57,6 +57,7 @@ module.exports = {
     const clientId = req.user.clientToken.id;
     const cart = req.body;
     if (cart.length >= 1) {
+      console.log(cart.length);
       cart.forEach((item) => productsId.push(item.id));
       Order.create({ clientId: clientId, statusId: 1 }).then((order) => {
         Product.findAll({
