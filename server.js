@@ -21,4 +21,6 @@ app.use(routes);
 // });
 
 const port = 3079;
-app.listen(port, () => console.log(`Servidor en http://localhost:${port}/`));
+app.listen(process.env.PORT || port, () =>
+  console.log(`Servidor en http://localhost:${port}/`)
+);
