@@ -9,6 +9,7 @@ const StatusModel = require("../models/Status.js");
 const OrdersProductModel = require("../models/Orders-Product.js");
 const CategoryModel = require("../models/Category.js");
 
+const pg = require("pg");
 const sequelize = new Sequelize(
   process.env.DATABASE,
   process.env.USER,
@@ -16,6 +17,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.HOST,
     dialect: process.env.DIALECT,
+    dialectModule: pg,
     logging: false,
   }
 );
