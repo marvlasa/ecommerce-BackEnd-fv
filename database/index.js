@@ -1,13 +1,13 @@
 "use strict";
 const { Sequelize, Model, DataTypes } = require("sequelize");
 
-const ProductModel = require("../models/Product.js");
-const ClientModel = require("../models/Client.js");
-const OrderModel = require("../models/Order.js");
-const AdminModel = require("../models/Admin.js");
-const StatusModel = require("../models/Status.js");
-const OrdersProductModel = require("../models/Orders-Product.js");
-const CategoryModel = require("../models/Category.js");
+const ProductModel = require("../models/product.js");
+const ClientModel = require("../models/client.js");
+const OrderModel = require("../models/order.js");
+const AdminModel = require("../models/admin.js");
+const StatusModel = require("../models/status.js");
+const OrdersProductModel = require("../models/orders-product.js");
+const CategoryModel = require("../models/category.js");
 
 const pg = require("pg");
 const sequelize = new Sequelize(
