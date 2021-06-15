@@ -1,5 +1,5 @@
 require("dotenv").config();
-const database = require("./database/index");
+// const database = require("./database/index");
 const seeder = require("./database/seeder");
 
 const express = require("express");
