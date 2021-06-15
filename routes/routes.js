@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const products = require("../database/data");
+const products = require("../database/data");
 const checkJwt = require("express-jwt");
 
 const clientController = require("../controllers/clientController");
